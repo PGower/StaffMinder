@@ -48,6 +48,8 @@ STATES = [('QLD','Queensland'),
 
 
 class StaffMember(models.Model):
+    created = models.DateField(auto_now_add=True)
+    updated = models.DateField(auto_now=True)
     title = models.CharField(max_length=50, choices=COMMON_TITLES)
     prefered_given_name = models.CharField(max_length=255, blank=True, null=True)
     legal_given_name = models.CharField(max_length=255)
@@ -105,6 +107,8 @@ class StaffMember(models.Model):
 
 
 class Address(models.Model):
+    created = models.DateField(auto_now_add=True)
+    updated = models.DateField(auto_now=True)
     rel = models.IntegerField(choices=ADDRESS_RELS)
     postal = models.BooleanField(default=False)
     label = models.CharField(max_length=255)
@@ -114,16 +118,22 @@ class Address(models.Model):
     suburb = models.CharField(max_length=255)
     city = models.CharField(max_length=255)
     pobox = models.BooleanField(default=False)
-    number = models.CharField(max_length=50) # This is a string to accomodate numbers like 15A
+    number = models.CharField(max_length=50)  # This is a string to accomodate numbers like 15A
     street = models.CharField(max_length=255)
     staff_member = models.ForeignKey('StaffMember', related_name='addresses')
 
 
 class PhoneNumber(models.Model):
+    created = models.DateField(auto_now_add=True)
+    updated = models.DateField(auto_now=True)
     rel = models.IntegerField(choices=PHONE_RELS)
     label = models.CharField(max_length=255)
     primary = models.BooleanField(default=False)
     value = models.IntegerField()
+
+    class Meta:
+        abstract = True
+        ordering = ['primary']
 
 
 class StaffPhoneNumber(PhoneNumber):
@@ -135,6 +145,8 @@ class NOKPhoneNumber(PhoneNumber):
 
 
 class NextOfKin(models.Model):
+    created = models.DateField(auto_now_add=True)
+    updated = models.DateField(auto_now=True)
     title = models.CharField(max_length=50, choices=COMMON_TITLES)
     given_name = models.CharField(max_length=255)
     surname = models.CharField(max_length=255)
@@ -143,6 +155,8 @@ class NextOfKin(models.Model):
 
 
 class Qualification(models.Model):
+    created = models.DateField(auto_now_add=True)
+    updated = models.DateField(auto_now=True)
     label = models.CharField(max_length=255)
     institution = models.CharField(max_length=255)
     date_awarded = models.DateField()
@@ -150,6 +164,8 @@ class Qualification(models.Model):
 
 
 class EmailAddress(models.Model):
+    created = models.DateField(auto_now_add=True)
+    updated = models.DateField(auto_now=True)
     address = models.EmailField(max_length=255)
     label = models.CharField(max_length=255)
     rel = models.IntegerField(choices=ADDRESS_RELS)
