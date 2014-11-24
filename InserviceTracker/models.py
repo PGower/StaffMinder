@@ -17,7 +17,7 @@ class InserviceRecord(models.Model):
     date = models.DateField(help_text='The date the inservice occured.')
     duration = models.IntegerField(help_text='Duration in minutes of the inservice.')
     presenter = models.CharField(max_length=255, help_text='Name of the inservice presenter.')
-    title = models.Charfield(max_length=255, help_text='Title of the inservice.')
+    title = models.CharField(max_length=255, help_text='Title of the inservice.')
     description = models.TextField(blank=True, null=True, help_text='Optional description of the inservice.')
     venue = models.TextField(blank=True, null=True, help_text='Optional venue that the inservice occured.')
     standards = models.ManyToManyField('InserviceStandard', related_name='records')
